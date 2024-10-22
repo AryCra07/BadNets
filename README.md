@@ -1,0 +1,1 @@
+A simple implementation of [*Badnets: Identifying vulnerabilities in the machine learning model supply chain* ](https://arxiv.org/abs/1708.06733).
