@@ -1,11 +1,16 @@
 from torchvision import transforms, datasets
-from .poisoned_datasets import MINISTPoison
+from .poisoned_datasets import MINISTPoison, CIFAR10Poison
 
 
 def init_dataset(name, path, is_download):
     if name == 'MNIST':
         train_data = MINISTPoison(root=path, train=True, download=is_download)
         test_data = MINISTPoison(root=path, train=False, download=is_download)
+    elif name == 'CIFAR10':
+        train_data = datasets.CIFAR10(root=path, train=True, download=is_download)
+        test_data = datasets.CIFAR10(root=path, train=False, download=is_download)
+    else:
+        raise NotImplementedError('Dataset not implemented')
     return train_data, test_data
 
 
@@ -17,8 +22,14 @@ def attack_train_set(is_train, args):
     :return: 训练集和输出类别数
     """
     transform, _ = build_transforms(args.dataset)
-    train_set = MINISTPoison(args, args.data_path, train=is_train, download=True, transform=transform)
-    output_classes = 10
+    if args.dataset == 'CIFAR10':
+        train_set = CIFAR10Poison(args, args.data_path, train=is_train, download=True, transform=transform)
+        output_classes = 10
+    elif args.dataset == 'MNIST':
+        train_set = MINISTPoison(args, args.data_path, train=is_train, download=True, transform=transform)
+        output_classes = 10
+    else:
+        raise NotImplementedError('Dataset not implemented')
     return train_set, output_classes
 
 
@@ -30,17 +41,25 @@ def test_set(is_train, args):
     :return: 测试集和中毒测试集
     """
     transform, _ = build_transforms(args.dataset)
-    set_clean = datasets.MNIST(args.data_path, train=is_train, download=True, transform=transform)
-    set_poisoned = MINISTPoison(args, args.data_path, train=is_train, download=True, transform=transform)
-    nb_classes = 10
+    if args.dataset == 'CIFAR10':
+        set_clean = datasets.CIFAR10(args.data_path, train=is_train, download=True, transform=transform)
+        set_poisoned = datasets.CIFAR10(args.data_path, train=is_train, download=True, transform=transform)
+    elif args.dataset == 'MNIST':
+        set_clean = datasets.MNIST(args.data_path, train=is_train, download=True, transform=transform)
+        set_poisoned = MINISTPoison(args, args.data_path, train=is_train, download=True, transform=transform)
+    else:
+        raise NotImplementedError('Dataset not implemented')
+
     return set_clean, set_poisoned
 
 
 def build_transforms(dataset):
     if dataset == "MNIST":
         mean, std = (0.1307,), (0.3081,)
+    elif dataset == "CIFAR10":
+        mean, std = (0.4914, 0.4822, 0.4465,), (0.2470, 0.2435, 0.2616,)
     else:
-        raise NotImplementedError()
+        raise NotImplementedError('Dataset not implemented')
 
     transform = transforms.Compose([
         transforms.ToTensor(),

@@ -10,18 +10,18 @@ class TriggerHandler:
 
     :param trigger_path: 触发器图片的路径
     :param trigger_size: 触发器的大小
-    :param trigger_label: 触发器的标签
+    :param target_label: 触发器的标签
     :param img_width: 图像的宽度
     :param img_height: 图像的高度
     :param mode: 图像的模式，默认为 RGB
     """
 
-    def __init__(self, trigger_path, trigger_size, trigger_label, img_width, img_height, mode='RGB'):
+    def __init__(self, trigger_path, trigger_size, target_label, img_width, img_height, mode='RGB'):
         self.mode = mode
         self.trigger_img = Image.open(trigger_path).convert(self.mode)
         self.trigger_size = trigger_size
         self.trigger_img = self.trigger_img.resize((trigger_size, trigger_size))
-        self.trigger_label = trigger_label
+        self.target_label = target_label
         self.img_width = img_width
         self.img_height = img_height
 

@@ -34,11 +34,11 @@ def train(data_loader_train, data_loader_clean, data_loader_poisoned, model, cri
         # Collect stats for each epoch to log later
         log_stats = {
             'epoch': epoch + 1,
-            'train_loss': epoch_loss,
-            'test_clean_acc': test_stats['clean_acc'],
-            'test_asr': test_stats['asr'],
-            'test_clean_loss': test_stats['clean_loss'],
-            'test_asr_loss': test_stats['asr_loss']
+            'train_loss': round(epoch_loss, 4),
+            'test_clean_acc': round(test_stats['clean_acc'], 4),
+            'test_asr': round(test_stats['asr'], 4),
+            'test_clean_loss': round(test_stats['clean_loss'], 4),
+            'test_asr_loss': round(test_stats['asr_loss'], 4),
         }
         stats.append(log_stats)
         df = pd.DataFrame(stats)

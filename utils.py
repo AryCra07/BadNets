@@ -12,7 +12,7 @@ def get_parser():
                         help='Which dataset to use (MNIST or CIFAR10, default: MNIST)')
     parser.add_argument('--output_classes', default=10, type=int, help='number of the classification types')
     parser.add_argument('--load_local', action='store_true', help='Load a locally trained model (default: false)')
-    parser.add_argument('--optimizer', default='sgd', help='Select the optimizer to use (sgd or adam, default: sgd)')
+    parser.add_argument('--optimizer', default='sgd', help='Select the optimizer to use (sgd or adamw, default: sgd)')
     parser.add_argument('--epochs', default=10, type=int, help='Number of epochs to train the model, default: 10')
     parser.add_argument('--batch_size', type=int, default=64, help='Batch size for the dataset, default: 64')
     parser.add_argument('--num_workers', type=int, default=0, help='Number of workers for the dataset, default: 0')
@@ -27,7 +27,7 @@ def get_parser():
     parser.add_argument('--target_label', type=int, default=1,
                         help='Trigger label (int, range from 0 to 10, default: 1)')
     parser.add_argument('--trigger_path', default="./triggers/trigger_1.png",
-                        help='Trigger path (default: ./triggers/trigger_1.png)')
+                        help='Trigger path (default: ./triggers/trigger_2.png)')
     parser.add_argument('--trigger_size', type=int, default=5, help='Trigger size (int, default: 5)')
 
     return parser
