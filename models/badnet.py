@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -9,6 +8,7 @@ class BadNet(nn.Module):
     :param input_channels: 图像的通道数
     :param output_classes:网络的输出类别数
     """
+
     def __init__(self, input_channels, output_classes):
         super(BadNet, self).__init__()
 
@@ -41,16 +41,3 @@ class BadNet(nn.Module):
         x = F.log_softmax(x, dim=1)
 
         return x
-
-
-# 测试模型的定义
-if __name__ == "__main__":
-    # 创建一个模型实例
-    model = BadNet(input_channels=3, output_classes=10)
-    # 打印模型结构
-    print(model)
-
-    # 测试输入（假设输入是一个批量大小为8的32x32 RGB图像）
-    test_input = torch.randn(8, 3, 32, 32)
-    test_output = model(test_input)
-    print(f"输出形状: {test_output.shape}")
