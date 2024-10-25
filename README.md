@@ -4,7 +4,7 @@ A simple implementation of [*Badnets: Identifying vulnerabilities in the machine
 chain* ](https://arxiv.org/abs/1708.06733).
 
 The CNN I built consists of three convolutional layers and two fully connected layers. Taking into account the need to
-support both MNIST and MST datasets, this model incorporates an extra convolutional
+support both MNIST and CIFAR10 datasets, this model incorporates an extra convolutional
 layer when compared to the model presented in the original paper.
 
 The implementation strategy is as follows:
